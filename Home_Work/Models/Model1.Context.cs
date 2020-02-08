@@ -13,10 +13,10 @@ namespace Home_Work.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Home_WorkDBEntities : DbContext
+    public partial class HomeWorkDBEntities : DbContext
     {
-        public Home_WorkDBEntities()
-            : base("name=Home_WorkDBEntities")
+        public HomeWorkDBEntities()
+            : base("name=HomeWorkDBEntities")
         {
         }
     
@@ -25,8 +25,13 @@ namespace Home_Work.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Contact_Message> Contact_Message { get; set; }
+        public virtual DbSet<Job_Post> Job_Post { get; set; }
+        public virtual DbSet<Job_SkillType> Job_SkillType { get; set; }
+        public virtual DbSet<Job_WorkType> Job_WorkType { get; set; }
+        public virtual DbSet<Profile_Education> Profile_Education { get; set; }
+        public virtual DbSet<Profile_Training> Profile_Training { get; set; }
         public virtual DbSet<Profile_User> Profile_User { get; set; }
-
-        public System.Data.Entity.DbSet<Home_Work.Models.ViewModels.RegisterViewModel> RegisterViewModels { get; set; }
+        public virtual DbSet<Profile_Work> Profile_Work { get; set; }
     }
 }

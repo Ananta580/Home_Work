@@ -4,7 +4,64 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Home_WorkDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="HomeWorkDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contact_Message">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Job_Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Price" Type="nchar" MaxLength="10" />
+          <Property Name="Requirement" Type="nvarchar" MaxLength="500" />
+          <Property Name="WorkingHour" Type="nchar" MaxLength="10" />
+          <Property Name="WorkingTypeId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="SkillTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Job_SkillType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Job_WorkType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Profile_Education">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchoolName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Affiliation" Type="nvarchar" MaxLength="50" />
+          <Property Name="Level" Type="nvarchar" MaxLength="50" />
+          <Property Name="PassOutDate" Type="date" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="Profile_Training">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CertificationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="InstituteName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Skills" Type="nvarchar" MaxLength="500" />
+          <Property Name="ComletedDate" Type="date" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
         <EntityType Name="Profile_User">
           <Key>
             <PropertyRef Name="ID" />
@@ -23,14 +80,107 @@
           <Property Name="Phone" Type="numeric" Precision="10" Scale="0" />
           <Property Name="CountryCode" Type="numeric" Precision="3" Scale="0" />
         </EntityType>
-        <EntityContainer Name="Home_WorkDBModelStoreContainer">
+        <EntityType Name="Profile_Work">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
+          <Property Name="Responsibility" Type="nvarchar" MaxLength="500" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <Association Name="FK__tblWork__UserID__2D27B809">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Profile_Work" Type="Self.Profile_Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Profile_Work">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HomeWorkDBModelStoreContainer">
+          <EntitySet Name="Contact_Message" EntityType="Self.Contact_Message" Schema="dbo" Table="Contact.Message" store:Type="Tables" />
+          <EntitySet Name="Job_Post" EntityType="Self.Job_Post" Schema="dbo" Table="Job.Post" store:Type="Tables" />
+          <EntitySet Name="Job_SkillType" EntityType="Self.Job_SkillType" Schema="dbo" Table="Job.SkillType" store:Type="Tables" />
+          <EntitySet Name="Job_WorkType" EntityType="Self.Job_WorkType" Schema="dbo" Table="Job.WorkType" store:Type="Tables" />
+          <EntitySet Name="Profile_Education" EntityType="Self.Profile_Education" Schema="dbo" Table="Profile.Education" store:Type="Tables" />
+          <EntitySet Name="Profile_Training" EntityType="Self.Profile_Training" Schema="dbo" Table="Profile.Training" store:Type="Tables" />
           <EntitySet Name="Profile_User" EntityType="Self.Profile_User" Schema="dbo" Table="Profile.User" store:Type="Tables" />
+          <EntitySet Name="Profile_Work" EntityType="Self.Profile_Work" Schema="dbo" Table="Profile.Work" store:Type="Tables" />
+          <AssociationSet Name="FK__tblWork__UserID__2D27B809" Association="Self.FK__tblWork__UserID__2D27B809">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Profile_Work" EntitySet="Profile_Work" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Home_WorkDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="HomeWorkDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Contact_Message">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Job_Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Requirement" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="WorkingHour" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="WorkingTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="SkillTypeId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Job_SkillType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Job_WorkType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Profile_Education">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Affiliation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Level" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassOutDate" Type="DateTime" Precision="0" />
+          <Property Name="UserID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Profile_Training">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CertificationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InstituteName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Skills" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ComletedDate" Type="DateTime" Precision="0" />
+          <Property Name="UserID" Type="Int32" />
+        </EntityType>
         <EntityType Name="Profile_User">
           <Key>
             <PropertyRef Name="ID" />
@@ -48,18 +198,119 @@
           <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="Decimal" Precision="10" Scale="0" />
           <Property Name="CountryCode" Type="Decimal" Precision="3" Scale="0" />
+          <NavigationProperty Name="Profile_Work" Relationship="Self.FK__tblWork__UserID__2D27B809" FromRole="Profile_User" ToRole="Profile_Work" />
         </EntityType>
-        <EntityContainer Name="Home_WorkDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityType Name="Profile_Work">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Responsibility" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="Profile_User" Relationship="Self.FK__tblWork__UserID__2D27B809" FromRole="Profile_Work" ToRole="Profile_User" />
+        </EntityType>
+        <Association Name="FK__tblWork__UserID__2D27B809">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Profile_Work" Type="Self.Profile_Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Profile_Work">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HomeWorkDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Contact_Message" EntityType="Self.Contact_Message" />
+          <EntitySet Name="Job_Post" EntityType="Self.Job_Post" />
+          <EntitySet Name="Job_SkillType" EntityType="Self.Job_SkillType" />
+          <EntitySet Name="Job_WorkType" EntityType="Self.Job_WorkType" />
+          <EntitySet Name="Profile_Education" EntityType="Self.Profile_Education" />
+          <EntitySet Name="Profile_Training" EntityType="Self.Profile_Training" />
           <EntitySet Name="Profile_User" EntityType="Self.Profile_User" />
+          <EntitySet Name="Profile_Work" EntityType="Self.Profile_Work" />
+          <AssociationSet Name="FK__tblWork__UserID__2D27B809" Association="Self.FK__tblWork__UserID__2D27B809">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Profile_Work" EntitySet="Profile_Work" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Home_WorkDBModelStoreContainer" CdmEntityContainer="Home_WorkDBEntities">
+        <EntityContainerMapping StorageEntityContainer="HomeWorkDBModelStoreContainer" CdmEntityContainer="HomeWorkDBEntities">
+          <EntitySetMapping Name="Contact_Message">
+            <EntityTypeMapping TypeName="HomeWorkDBModel.Contact_Message">
+              <MappingFragment StoreEntitySet="Contact_Message">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Job_Post">
+            <EntityTypeMapping TypeName="HomeWorkDBModel.Job_Post">
+              <MappingFragment StoreEntitySet="Job_Post">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Requirement" ColumnName="Requirement" />
+                <ScalarProperty Name="WorkingHour" ColumnName="WorkingHour" />
+                <ScalarProperty Name="WorkingTypeId" ColumnName="WorkingTypeId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="SkillTypeId" ColumnName="SkillTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Job_SkillType">
+            <EntityTypeMapping TypeName="HomeWorkDBModel.Job_SkillType">
+              <MappingFragment StoreEntitySet="Job_SkillType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Job_WorkType">
+            <EntityTypeMapping TypeName="HomeWorkDBModel.Job_WorkType">
+              <MappingFragment StoreEntitySet="Job_WorkType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profile_Education">
+            <EntityTypeMapping TypeName="HomeWorkDBModel.Profile_Education">
+              <MappingFragment StoreEntitySet="Profile_Education">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="Affiliation" ColumnName="Affiliation" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="PassOutDate" ColumnName="PassOutDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profile_Training">
+            <EntityTypeMapping TypeName="HomeWorkDBModel.Profile_Training">
+              <MappingFragment StoreEntitySet="Profile_Training">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CertificationName" ColumnName="CertificationName" />
+                <ScalarProperty Name="InstituteName" ColumnName="InstituteName" />
+                <ScalarProperty Name="Skills" ColumnName="Skills" />
+                <ScalarProperty Name="ComletedDate" ColumnName="ComletedDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Profile_User">
-            <EntityTypeMapping TypeName="Home_WorkDBModel.Profile_User">
+            <EntityTypeMapping TypeName="HomeWorkDBModel.Profile_User">
               <MappingFragment StoreEntitySet="Profile_User">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -74,6 +325,18 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profile_Work">
+            <EntityTypeMapping TypeName="HomeWorkDBModel.Profile_Work">
+              <MappingFragment StoreEntitySet="Profile_Work">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Responsibility" ColumnName="Responsibility" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

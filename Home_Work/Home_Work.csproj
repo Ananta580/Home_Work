@@ -133,6 +133,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Contact_Message.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Job_Post.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Job_SkillType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Job_WorkType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -148,7 +160,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Profile_Education.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Profile_Training.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Profile_User.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Profile_Work.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
@@ -156,18 +177,139 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\inc\images\loading.html" />
+    <Content Include="Content\css\plugins.css" />
+    <Content Include="Content\css\skin\skin-1.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\templete.css" />
+    <Content Include="Content\images\background\bg2.jpg" />
+    <Content Include="Content\images\background\bg4.jpg" />
+    <Content Include="Content\images\background\bg7.html" />
+    <Content Include="Content\images\background\bg8.html" />
+    <Content Include="Content\images\banner\bnr1.jpg" />
+    <Content Include="Content\images\banner\bnr2.jpg" />
+    <Content Include="Content\images\blog\default\thum1.jpg" />
+    <Content Include="Content\images\blog\default\thum2.jpg" />
+    <Content Include="Content\images\blog\default\thum3.jpg" />
+    <Content Include="Content\images\blog\default\thum4.jpg" />
+    <Content Include="Content\images\blog\grid\pic1.jpg" />
+    <Content Include="Content\images\blog\grid\pic2.jpg" />
+    <Content Include="Content\images\blog\grid\pic3.jpg" />
+    <Content Include="Content\images\blog\grid\pic4.jpg" />
+    <Content Include="Content\images\blog\recent-blog\pic1.jpg" />
+    <Content Include="Content\images\blog\recent-blog\pic2.jpg" />
+    <Content Include="Content\images\blog\recent-blog\pic3.jpg" />
+    <Content Include="Content\images\categories-bg.png" />
+    <Content Include="Content\images\city\pic1.jpg" />
+    <Content Include="Content\images\city\pic2.jpg" />
+    <Content Include="Content\images\city\pic3.jpg" />
+    <Content Include="Content\images\city\pic4.jpg" />
+    <Content Include="Content\images\city\pic5.jpg" />
+    <Content Include="Content\images\city\pic6.jpg" />
+    <Content Include="Content\images\city\pic7.jpg" />
+    <Content Include="Content\images\city\pic8.jpg" />
+    <Content Include="Content\images\favicon.ico" />
+    <Content Include="Content\images\favicon.png" />
+    <Content Include="Content\images\gallery\pic1.jpg" />
+    <Content Include="Content\images\gallery\pic2.jpg" />
+    <Content Include="Content\images\gallery\pic3.jpg" />
+    <Content Include="Content\images\gallery\pic4.jpg" />
+    <Content Include="Content\images\gallery\pic5.jpg" />
+    <Content Include="Content\images\gallery\pic6.jpg" />
+    <Content Include="Content\images\gallery\pic7.jpg" />
+    <Content Include="Content\images\gallery\pic8.jpg" />
+    <Content Include="Content\images\gallery\pic9.jpg" />
+    <Content Include="Content\images\line.html" />
+    <Content Include="Content\images\line1.html" />
+    <Content Include="Content\images\lines.png" />
+    <Content Include="Content\images\loading.svg" />
+    <Content Include="Content\images\logo-white.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\logo\icon1.png" />
+    <Content Include="Content\images\logo\logo\logo1.png" />
+    <Content Include="Content\images\logo\logo\logo2.png" />
+    <Content Include="Content\images\logo\logo\logo3.png" />
+    <Content Include="Content\images\logo\logo\logo4.png" />
+    <Content Include="Content\images\main-slider\slide1.jpg" />
+    <Content Include="Content\images\main-slider\slide2.jpg" />
+    <Content Include="Content\images\our-work\pic1.jpg" />
+    <Content Include="Content\images\our-work\pic4.jpg" />
+    <Content Include="Content\images\testimonials\pic1.jpg" />
+    <Content Include="Content\images\testimonials\pic2.jpg" />
+    <Content Include="Content\images\testimonials\pic3.jpg" />
+    <Content Include="Content\js\custom.js" />
+    <Content Include="Content\js\dz.ajax.js" />
+    <Content Include="Content\js\dz.carousel.js" />
+    <Content Include="Content\js\jquery.min.js" />
+    <Content Include="Content\js\recaptcha\api.js" />
+    <Content Include="Content\plugins\animate\animate.html" />
+    <Content Include="Content\plugins\bootstrap-select\bootstrap-select.min.css" />
+    <Content Include="Content\plugins\bootstrap-select\bootstrap-select.min.js" />
+    <Content Include="Content\plugins\bootstrap-touchspin\jquery.bootstrap-touchspin.js" />
+    <Content Include="Content\plugins\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\plugins\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\plugins\bootstrap\js\popper.min.js" />
+    <Content Include="Content\plugins\countdown\jquery.countdown.js" />
+    <Content Include="Content\plugins\counter\counterup.min.js" />
+    <Content Include="Content\plugins\counter\waypoints-min.js" />
+    <Content Include="Content\plugins\datepicker\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\plugins\fontawesome\css\font-awesome.min.css" />
+    <Content Include="Content\plugins\fontawesome\fonts\fontawesome-webfont3e6e.svg" />
+    <Content Include="Content\plugins\imagesloaded\imagesloaded.js" />
+    <Content Include="Content\plugins\magnific-popup\magnific-popup.css" />
+    <Content Include="Content\plugins\magnific-popup\magnific-popup.js" />
+    <Content Include="Content\plugins\masonry\masonry-3.1.4.js" />
+    <Content Include="Content\plugins\masonry\masonry.filter.js" />
+    <Content Include="Content\plugins\owl-carousel\owl.carousel.css" />
+    <Content Include="Content\plugins\owl-carousel\owl.carousel.js" />
+    <Content Include="Content\plugins\owl-carousel\owl.video.play.html" />
+    <Content Include="Content\plugins\paroller\skrollr.min.js" />
+    <Content Include="Content\plugins\rangeslider\images\ui-bg_glass_55_fbf9ee_1x400.html" />
+    <Content Include="Content\plugins\rangeslider\images\ui-bg_glass_95_fef1ec_1x400.html" />
+    <Content Include="Content\plugins\rangeslider\images\ui-icons_222222_256x240.html" />
+    <Content Include="Content\plugins\rangeslider\images\ui-icons_2e83ff_256x240.html" />
+    <Content Include="Content\plugins\rangeslider\images\ui-icons_454545_256x240.html" />
+    <Content Include="Content\plugins\rangeslider\images\ui-icons_888888_256x240.html" />
+    <Content Include="Content\plugins\rangeslider\images\ui-icons_cd0a0a_256x240.html" />
+    <Content Include="Content\plugins\rangeslider\rangeslider.css" />
+    <Content Include="Content\plugins\rangeslider\rangeslider.js" />
+    <Content Include="Content\plugins\revolution\revolution-addons\countdown\revolution.addon.countdown.min.js" />
+    <Content Include="Content\plugins\revolution\revolution-addons\typewriter\js\revolution.addon.typewriter.min.js" />
+    <Content Include="Content\plugins\revolution\revolution\assets\coloredbg.png" />
+    <Content Include="Content\plugins\revolution\revolution\assets\gridtile.png" />
+    <Content Include="Content\plugins\revolution\revolution\assets\gridtile_3x3.png" />
+    <Content Include="Content\plugins\revolution\revolution\assets\gridtile_3x3_white.png" />
+    <Content Include="Content\plugins\revolution\revolution\assets\gridtile_white.png" />
+    <Content Include="Content\plugins\revolution\revolution\assets\loader.gif" />
+    <Content Include="Content\plugins\revolution\revolution\css\closedhand.html" />
+    <Content Include="Content\plugins\revolution\revolution\css\layers.css" />
+    <Content Include="Content\plugins\revolution\revolution\css\navigation.css" />
+    <Content Include="Content\plugins\revolution\revolution\css\openhand.html" />
+    <Content Include="Content\plugins\revolution\revolution\css\settings.css" />
+    <Content Include="Content\plugins\revolution\revolution\fonts\revicons\revicons90c6.svg" />
+    <Content Include="Content\plugins\revolution\revolution\js\extensions\revolution.extension.actions.min.js" />
+    <Content Include="Content\plugins\revolution\revolution\js\extensions\revolution.extension.carousel.min.js" />
+    <Content Include="Content\plugins\revolution\revolution\js\extensions\revolution.extension.kenburn.min.js" />
+    <Content Include="Content\plugins\revolution\revolution\js\extensions\revolution.extension.layeranimation.min.js" />
+    <Content Include="Content\plugins\revolution\revolution\js\extensions\revolution.extension.migration.min.js" />
+    <Content Include="Content\plugins\revolution\revolution\js\extensions\revolution.extension.navigation.min.js" />
+    <Content Include="Content\plugins\revolution\revolution\js\extensions\revolution.extension.parallax.min.js" />
+    <Content Include="Content\plugins\revolution\revolution\js\extensions\revolution.extension.slideanims.min.js" />
+    <Content Include="Content\plugins\revolution\revolution\js\extensions\revolution.extension.video.min.js" />
+    <Content Include="Content\plugins\revolution\revolution\js\jquery.themepunch.revolution.min.js" />
+    <Content Include="Content\plugins\revolution\revolution\js\jquery.themepunch.tools.min.js" />
+    <Content Include="Content\plugins\scroll\scrollbar.css" />
+    <Content Include="Content\plugins\scroll\scrollbar.min.js" />
+    <Content Include="Content\plugins\themify\fonts\themify9f24.svg" />
+    <Content Include="Content\plugins\themify\themify-icons.css" />
+    <Content Include="Content\plugins\wow\wow.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -183,6 +325,18 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\plugins\fontawesome\fonts\fontawesome-webfont3e6e.eot" />
+    <Content Include="Content\plugins\fontawesome\fonts\fontawesome-webfont3e6e.ttf" />
+    <Content Include="Content\plugins\fontawesome\fonts\fontawesome-webfont3e6e.woff" />
+    <Content Include="Content\plugins\fontawesome\fonts\fontawesome-webfont3e6e.woff2" />
+    <Content Include="Content\plugins\fontawesome\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="Content\plugins\revolution\revolution\fonts\revicons\revicons90c6.eot" />
+    <Content Include="Content\plugins\revolution\revolution\fonts\revicons\revicons90c6.ttf" />
+    <Content Include="Content\plugins\revolution\revolution\fonts\revicons\revicons90c6.woff" />
+    <Content Include="Content\plugins\themify\fonts\themify9f24.eot" />
+    <Content Include="Content\plugins\themify\fonts\themify9f24.ttf" />
+    <Content Include="Content\plugins\themify\fonts\themify9f24.woff" />
+    <Content Include="Content\plugins\themify\fonts\themifyd41d.eot" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -224,10 +378,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />

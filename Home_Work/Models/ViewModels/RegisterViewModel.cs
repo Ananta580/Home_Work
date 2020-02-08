@@ -11,12 +11,15 @@ namespace Home_Work.Models.ViewModels
         public int ID { get; set; }
         [Required]
         public string UserName { get; set; }
+        [Required]
         public string Password { get; set; }
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
         public Nullable<System.DateTime> LastLoginDate { get; set; }
+        [Required]
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
+        [Required]
         public string LastName { get; set; }
         public string Gender { get; set; }
         public string Nationality { get; set; }

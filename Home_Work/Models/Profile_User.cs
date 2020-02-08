@@ -14,6 +14,12 @@ namespace Home_Work.Models
     
     public partial class Profile_User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Profile_User()
+        {
+            this.Profile_Work = new HashSet<Profile_Work>();
+        }
+    
         public int ID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
@@ -27,5 +33,8 @@ namespace Home_Work.Models
         public string Email { get; set; }
         public Nullable<decimal> Phone { get; set; }
         public Nullable<decimal> CountryCode { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Profile_Work> Profile_Work { get; set; }
     }
 }

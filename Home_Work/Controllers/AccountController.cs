@@ -14,7 +14,7 @@ namespace Home_Work.Controllers
 {
     public class AccountController : Controller
     {
-        public  Home_WorkDBEntities db = new Home_WorkDBEntities();
+        public  HomeWorkDBEntities db = new HomeWorkDBEntities();
 
         public ActionResult Login()
         {
@@ -71,16 +71,27 @@ namespace Home_Work.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,UserName,Password,LastLoginDate,FirstName,MiddleName,LastName,Gender,Nationality,Address,Email,Phone,CountryCode")] Profile_User profile_User)
+        public ActionResult Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
+                Profile_User profile_User = new Profile_User();
+                profile_User.FirstName = model.FirstName;
+                profile_User.MiddleName = model.MiddleName;
+                profile_User.LastName = model.LastName;
+                profile_User.Phone = model.Phone;
+                profile_User.Email = model.Email;
+                profile_User.CountryCode = model.CountryCode;
+                profile_User.Phone = model.Phone;
+                profile_User.Nationality = model.Nationality;
+                profile_User.UserName = model.UserName;
+                profile_User.Password = model.Password;
                 db.Profile_User.Add(profile_User);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Login", "Account");
             }
 
-            return View(profile_User);
+            return RedirectToAction("Register", "Account");
         }
 
         // GET: Account/Edit/5

@@ -26,12 +26,17 @@ namespace Home_Work.Models
         }
     
         public virtual DbSet<Contact_Message> Contact_Message { get; set; }
+        public virtual DbSet<Contact_Messanger> Contact_Messanger { get; set; }
+        public virtual DbSet<Job_HomeBase> Job_HomeBase { get; set; }
         public virtual DbSet<Job_Post> Job_Post { get; set; }
         public virtual DbSet<Job_SkillType> Job_SkillType { get; set; }
         public virtual DbSet<Job_WorkType> Job_WorkType { get; set; }
+        public virtual DbSet<Portfolio_Image> Portfolio_Image { get; set; }
         public virtual DbSet<Profile_Education> Profile_Education { get; set; }
+        public virtual DbSet<Profile_Portfolio> Profile_Portfolio { get; set; }
         public virtual DbSet<Profile_Training> Profile_Training { get; set; }
         public virtual DbSet<Profile_User> Profile_User { get; set; }
         public virtual DbSet<Profile_Work> Profile_Work { get; set; }
+        public virtual DbSet<Profile_WorkStatus> Profile_WorkStatus { get; set; }
     }
 }

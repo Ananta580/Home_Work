@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Home_Work.Models;
+using Home_Work.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,12 @@ namespace Home_Work.Controllers
 {
     public class HomeController : Controller
     {
+        public HomeWorkDBEntities db = new HomeWorkDBEntities();
         public ActionResult Index()
         {
-            return View();
+            ViewBag.WorkType = db.Job_WorkType.ToList();
+            ViewBag.SkillType = db.Job_SkillType.ToList();
+            return View(db.Job_Post.ToList());
         }
 
         public ActionResult About()

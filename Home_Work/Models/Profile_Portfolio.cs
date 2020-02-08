@@ -12,18 +12,23 @@ namespace Home_Work.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Contact_Message
+    public partial class Profile_Portfolio
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Contact_Message()
+        public Profile_Portfolio()
         {
-            this.Contact_Messanger = new HashSet<Contact_Messanger>();
+            this.Portfolio_Image = new HashSet<Portfolio_Image>();
         }
     
         public int ID { get; set; }
-        public string Message { get; set; }
+        public string Project_Name { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public string ProjectDescription { get; set; }
+        public string ToolsUsed { get; set; }
+        public Nullable<int> UserID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contact_Messanger> Contact_Messanger { get; set; }
+        public virtual ICollection<Portfolio_Image> Portfolio_Image { get; set; }
+        public virtual Profile_User Profile_User { get; set; }
     }
 }

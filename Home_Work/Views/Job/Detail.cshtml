@@ -1,0 +1,67 @@
+﻿@model Home_Work.Models.Job_Post
+    @{ 
+
+    }
+
+<div class="section-full content-inner-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="sticky-top">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-6">
+                        </div>
+                        <div class="col-lg-12 col-md-6">
+                            <div class="widget bg-white p-lr20 p-t20  widget_getintuch radius-sm">
+                                <h4 class="text-black font-weight-700 p-t10 m-b15">Job Details</h4>
+                                <ul>
+                                    <li><i class="ti-location-pin"></i><strong class="font-weight-700 text-black">Address</strong><span class="text-black-light">Nepal</span></li>
+                                    <li><i class="ti-money"></i><strong class="font-weight-700 text-black">Salary</strong> $@Model.Price</li>
+                                    <li><i class="ti-shield"></i><strong class="font-weight-700 text-black">Time</strong>@Model.WorkingHour Hr</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="job-info-box">
+                    <h3 class="m-t0 m-b10 font-weight-700 title-head">
+                        <a href="#" class="text-secondry m-r30">@Model.Title</a>
+                    </h3>
+                    <ul class="job-info">
+                        <li>
+                            <strong>SKILL</strong> @foreach (var skilltype in ViewBag.SkillType)
+                            {
+                                if (skilltype.Id == Model.SkillTypeId)
+                                {@skilltype.Name
+                            }
+                        }
+                        </li>
+                        <li><strong>Work Hour:</strong>@Model.WorkingHour</li>
+                        <li><i class="ti-location-pin text-black m-r5"></i> Nepal </li>
+                    </ul>
+                    <h5 class="font-weight-600">Job Description</h5>
+                    <div class="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
+                    <p>@Model.Description</p>
+                    <h5 class="font-weight-600">How to Apply</h5>
+                    <div class="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    <h5 class="font-weight-600">Job Requirements</h5>
+                    <div class="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
+                    <ul class="list-num-count no-round">
+                        <p>@Model.Requirement</p>
+                    </ul>
+                    @using (Html.BeginForm("Detail","Job",FormMethod.Post,new {  userid = Model.UserId, id = Model.Id}))
+                    {
+                <form>
+                    <textarea class="form-control" name="proposal" placeholder="Submit a Proposal" type="text"></textarea>
+                    <a class="site-button" type="submit">Submit Proposal</a>
+                </form>
+                    }
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

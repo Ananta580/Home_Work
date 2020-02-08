@@ -14,7 +14,16 @@ namespace Home_Work.Models
     
     public partial class Job_WorkType
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Job_WorkType()
+        {
+            this.Job_Post = new HashSet<Job_Post>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Job_Post> Job_Post { get; set; }
     }
 }

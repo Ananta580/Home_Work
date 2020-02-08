@@ -20,5 +20,7 @@ namespace Home_Work.Models
         public string Skills { get; set; }
         public Nullable<System.DateTime> ComletedDate { get; set; }
         public Nullable<int> UserID { get; set; }
+    
+        public virtual Profile_User Profile_User { get; set; }
     }
 }

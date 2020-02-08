@@ -1,0 +1,92 @@
+﻿@model Home_Work.Models.Job_Post
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="page-content bg-white">
+        <!-- inner page banner -->
+        <div class="dez-bnr-inr overlay-black-middle bg-pt" style="background-image:url(images/banner/bnr2.jpg);">
+            <div class="container">
+                <div class="dez-bnr-inr-entry">
+                    <h1 class="text-white">Register</h1>
+                    <!-- Breadcrumb row -->
+                    <div class="breadcrumb-row">
+                        <ul class="list-inline">
+                            <li><a @Url.Action("Index", "Home")>Home</a></li>
+                            <li>Register</li>
+                        </ul>
+                    </div>
+                    <!-- Breadcrumb row END -->
+                </div>
+            </div>
+        </div>
+        <!-- inner page banner END -->
+        <!-- contact area -->
+        <div class="section-full content-inner shop-account">
+            <!-- Product -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h3 class="font-weight-700 m-t0 m-b20">Post a Job</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 m-b30">
+                        <div class="p-a30 border-1  max-w500 m-auto">
+                            <div class="tab-content">
+                                <form id="login" class="tab-pane active">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="font-weight-700">Title to Job</label>
+                                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="row">
+                                            <label class="font-weight-700">Description Of Job</label>
+                                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="row">
+                                            <label class="font-weight-700">Requirements for Job</label>
+                                            @Html.EditorFor(model => model.Requirement, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Requirement, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="row">
+                                            <label class="font-weight-700">
+                                                Working Hour
+                                            </label>
+                                            @Html.EditorFor(model => model.WorkingHour, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.WorkingHour, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="row">
+                                            <label class="font-weight-700">
+                                                Working Price
+                                            </label>
+                                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="row">
+                                            <label class="font-weight-700">Working Type</label>
+                                            @Html.DropDownListFor(x => x.WorkingTypeId, new SelectList(ViewBag.WorkingTypes, "Id", "Name"))
+                                            @Html.ValidationMessageFor(model => model.WorkingTypeId, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="row">
+                                            <label class="font-weight-700">Skill Type</label>
+                                            @Html.DropDownListFor(x => x.SkillTypeId, new SelectList(ViewBag.SkillTypes, "Id", "Name"))
+                                            @Html.ValidationMessageFor(model => model.WorkingTypeId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="text-left">
+                                        <button class="site-button button-lg outline outline-2">Post Job</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Product END -->
+        </div>
+        <!-- contact area  END -->
+    </div>
+}

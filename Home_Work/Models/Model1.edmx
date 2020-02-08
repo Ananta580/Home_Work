@@ -12,11 +12,32 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Message" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="Contact_Messanger">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MessageID" Type="int" />
+          <Property Name="SenderID" Type="int" />
+          <Property Name="RecieverID" Type="int" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Job_HomeBase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostId" Type="int" />
+          <Property Name="JobLocation" Type="nvarchar" MaxLength="100" />
+          <Property Name="ContactNo" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="CountryCode" Type="numeric" Precision="3" Scale="0" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
         <EntityType Name="Job_Post">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="250" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="Price" Type="nchar" MaxLength="10" />
@@ -40,6 +61,16 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="Portfolio_Image">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageCaption" Type="varchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Photo" Type="nvarchar" MaxLength="50" />
+          <Property Name="PortfolioID" Type="int" />
+        </EntityType>
         <EntityType Name="Profile_Education">
           <Key>
             <PropertyRef Name="ID" />
@@ -49,6 +80,17 @@
           <Property Name="Affiliation" Type="nvarchar" MaxLength="50" />
           <Property Name="Level" Type="nvarchar" MaxLength="50" />
           <Property Name="PassOutDate" Type="date" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="Profile_Portfolio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Project Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="date" />
+          <Property Name="ProjectDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="ToolsUsed" Type="nvarchar" MaxLength="50" />
           <Property Name="UserID" Type="int" />
         </EntityType>
         <EntityType Name="Profile_Training">
@@ -91,6 +133,68 @@
           <Property Name="StartDate" Type="date" />
           <Property Name="UserID" Type="int" />
         </EntityType>
+        <EntityType Name="Profile_WorkStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="JobId" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" />
+          <Property Name="Approved" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Portfolio__UserI__6C190EBB">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1" />
+          <End Role="Portfolio_Image" Type="Self.Portfolio_Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Portfolio_Image">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Profile_P__UserI__693CA210">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1" />
+          <End Role="Profile_Portfolio" Type="Self.Profile_Portfolio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Profile_Portfolio">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEducat__UserI__29572725">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Profile_Education" Type="Self.Profile_Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Profile_Education">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblTraini__UserI__300424B4">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Profile_Training" Type="Self.Profile_Training" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Profile_Training">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tblWork__UserID__2D27B809">
           <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -105,18 +209,207 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Contact_Messanger_Contact_Message">
+          <End Role="Contact_Message" Type="Self.Contact_Message" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Contact_Messanger" Type="Self.Contact_Messanger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact_Message">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Contact_Messanger">
+              <PropertyRef Name="MessageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contact_Messanger_Profile_User">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1" />
+          <End Role="Contact_Messanger" Type="Self.Contact_Messanger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Contact_Messanger">
+              <PropertyRef Name="SenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contact_Messanger_Profile_User1">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1" />
+          <End Role="Contact_Messanger" Type="Self.Contact_Messanger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Contact_Messanger">
+              <PropertyRef Name="RecieverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Job_Post_Job_SkillType">
+          <End Role="Job_SkillType" Type="Self.Job_SkillType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Job_Post" Type="Self.Job_Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_SkillType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Job_Post">
+              <PropertyRef Name="SkillTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Job_Post_Job_WorkType">
+          <End Role="Job_WorkType" Type="Self.Job_WorkType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Job_Post" Type="Self.Job_Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_WorkType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Job_Post">
+              <PropertyRef Name="WorkingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Job_Post_Profile_User">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Job_Post" Type="Self.Job_Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Job_Post">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jobe_HomeBase_Job_Post">
+          <End Role="Job_Post" Type="Self.Job_Post" Multiplicity="0..1" />
+          <End Role="Job_HomeBase" Type="Self.Job_HomeBase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Job_HomeBase">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Portfolio_Image_Profile_Portfolio">
+          <End Role="Profile_Portfolio" Type="Self.Profile_Portfolio" Multiplicity="0..1" />
+          <End Role="Portfolio_Image" Type="Self.Portfolio_Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_Portfolio">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Portfolio_Image">
+              <PropertyRef Name="PortfolioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_WorkStatus_Job_Post">
+          <End Role="Job_Post" Type="Self.Job_Post" Multiplicity="0..1" />
+          <End Role="Profile_WorkStatus" Type="Self.Profile_WorkStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Profile_WorkStatus">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_WorkStatus_Profile_User">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1" />
+          <End Role="Profile_WorkStatus" Type="Self.Profile_WorkStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Profile_WorkStatus">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HomeWorkDBModelStoreContainer">
           <EntitySet Name="Contact_Message" EntityType="Self.Contact_Message" Schema="dbo" Table="Contact.Message" store:Type="Tables" />
+          <EntitySet Name="Contact_Messanger" EntityType="Self.Contact_Messanger" Schema="dbo" Table="Contact.Messanger" store:Type="Tables" />
+          <EntitySet Name="Job_HomeBase" EntityType="Self.Job_HomeBase" Schema="dbo" Table="Job.HomeBase" store:Type="Tables" />
           <EntitySet Name="Job_Post" EntityType="Self.Job_Post" Schema="dbo" Table="Job.Post" store:Type="Tables" />
           <EntitySet Name="Job_SkillType" EntityType="Self.Job_SkillType" Schema="dbo" Table="Job.SkillType" store:Type="Tables" />
           <EntitySet Name="Job_WorkType" EntityType="Self.Job_WorkType" Schema="dbo" Table="Job.WorkType" store:Type="Tables" />
+          <EntitySet Name="Portfolio_Image" EntityType="Self.Portfolio_Image" Schema="dbo" Table="Portfolio.Image" store:Type="Tables" />
           <EntitySet Name="Profile_Education" EntityType="Self.Profile_Education" Schema="dbo" Table="Profile.Education" store:Type="Tables" />
+          <EntitySet Name="Profile_Portfolio" EntityType="Self.Profile_Portfolio" Schema="dbo" Table="Profile.Portfolio" store:Type="Tables" />
           <EntitySet Name="Profile_Training" EntityType="Self.Profile_Training" Schema="dbo" Table="Profile.Training" store:Type="Tables" />
           <EntitySet Name="Profile_User" EntityType="Self.Profile_User" Schema="dbo" Table="Profile.User" store:Type="Tables" />
           <EntitySet Name="Profile_Work" EntityType="Self.Profile_Work" Schema="dbo" Table="Profile.Work" store:Type="Tables" />
+          <EntitySet Name="Profile_WorkStatus" EntityType="Self.Profile_WorkStatus" Schema="dbo" Table="Profile.WorkStatus" store:Type="Tables" />
+          <AssociationSet Name="FK__Portfolio__UserI__6C190EBB" Association="Self.FK__Portfolio__UserI__6C190EBB">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Portfolio_Image" EntitySet="Portfolio_Image" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Profile_P__UserI__693CA210" Association="Self.FK__Profile_P__UserI__693CA210">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Profile_Portfolio" EntitySet="Profile_Portfolio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEducat__UserI__29572725" Association="Self.FK__tblEducat__UserI__29572725">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Profile_Education" EntitySet="Profile_Education" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblTraini__UserI__300424B4" Association="Self.FK__tblTraini__UserI__300424B4">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Profile_Training" EntitySet="Profile_Training" />
+          </AssociationSet>
           <AssociationSet Name="FK__tblWork__UserID__2D27B809" Association="Self.FK__tblWork__UserID__2D27B809">
             <End Role="Profile_User" EntitySet="Profile_User" />
             <End Role="Profile_Work" EntitySet="Profile_Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contact_Messanger_Contact_Message" Association="Self.FK_Contact_Messanger_Contact_Message">
+            <End Role="Contact_Message" EntitySet="Contact_Message" />
+            <End Role="Contact_Messanger" EntitySet="Contact_Messanger" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contact_Messanger_Profile_User" Association="Self.FK_Contact_Messanger_Profile_User">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Contact_Messanger" EntitySet="Contact_Messanger" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contact_Messanger_Profile_User1" Association="Self.FK_Contact_Messanger_Profile_User1">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Contact_Messanger" EntitySet="Contact_Messanger" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Job_Post_Job_SkillType" Association="Self.FK_Job_Post_Job_SkillType">
+            <End Role="Job_SkillType" EntitySet="Job_SkillType" />
+            <End Role="Job_Post" EntitySet="Job_Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Job_Post_Job_WorkType" Association="Self.FK_Job_Post_Job_WorkType">
+            <End Role="Job_WorkType" EntitySet="Job_WorkType" />
+            <End Role="Job_Post" EntitySet="Job_Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Job_Post_Profile_User" Association="Self.FK_Job_Post_Profile_User">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Job_Post" EntitySet="Job_Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jobe_HomeBase_Job_Post" Association="Self.FK_Jobe_HomeBase_Job_Post">
+            <End Role="Job_Post" EntitySet="Job_Post" />
+            <End Role="Job_HomeBase" EntitySet="Job_HomeBase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Portfolio_Image_Profile_Portfolio" Association="Self.FK_Portfolio_Image_Profile_Portfolio">
+            <End Role="Profile_Portfolio" EntitySet="Profile_Portfolio" />
+            <End Role="Portfolio_Image" EntitySet="Portfolio_Image" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_WorkStatus_Job_Post" Association="Self.FK_Profile_WorkStatus_Job_Post">
+            <End Role="Job_Post" EntitySet="Job_Post" />
+            <End Role="Profile_WorkStatus" EntitySet="Profile_WorkStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_WorkStatus_Profile_User" Association="Self.FK_Profile_WorkStatus_Profile_User">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Profile_WorkStatus" EntitySet="Profile_WorkStatus" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -130,12 +423,38 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contact_Messanger" Relationship="Self.FK_Contact_Messanger_Contact_Message" FromRole="Contact_Message" ToRole="Contact_Messanger" />
+        </EntityType>
+        <EntityType Name="Contact_Messanger">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MessageID" Type="Int32" />
+          <Property Name="SenderID" Type="Int32" />
+          <Property Name="RecieverID" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Contact_Message" Relationship="Self.FK_Contact_Messanger_Contact_Message" FromRole="Contact_Messanger" ToRole="Contact_Message" />
+          <NavigationProperty Name="Profile_User" Relationship="Self.FK_Contact_Messanger_Profile_User" FromRole="Contact_Messanger" ToRole="Profile_User" />
+          <NavigationProperty Name="Profile_User1" Relationship="Self.FK_Contact_Messanger_Profile_User1" FromRole="Contact_Messanger" ToRole="Profile_User" />
+        </EntityType>
+        <EntityType Name="Job_HomeBase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostId" Type="Int32" />
+          <Property Name="JobLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNo" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="CountryCode" Type="Decimal" Precision="3" Scale="0" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Job_Post" Relationship="Self.FK_Jobe_HomeBase_Job_Post" FromRole="Job_HomeBase" ToRole="Job_Post" />
         </EntityType>
         <EntityType Name="Job_Post">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
@@ -144,6 +463,11 @@
           <Property Name="WorkingTypeId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="SkillTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Job_HomeBase" Relationship="Self.FK_Jobe_HomeBase_Job_Post" FromRole="Job_Post" ToRole="Job_HomeBase" />
+          <NavigationProperty Name="Job_SkillType" Relationship="Self.FK_Job_Post_Job_SkillType" FromRole="Job_Post" ToRole="Job_SkillType" />
+          <NavigationProperty Name="Job_WorkType" Relationship="Self.FK_Job_Post_Job_WorkType" FromRole="Job_Post" ToRole="Job_WorkType" />
+          <NavigationProperty Name="Profile_User" Relationship="Self.FK_Job_Post_Profile_User" FromRole="Job_Post" ToRole="Profile_User" />
+          <NavigationProperty Name="Profile_WorkStatus" Relationship="Self.FK_Profile_WorkStatus_Job_Post" FromRole="Job_Post" ToRole="Profile_WorkStatus" />
         </EntityType>
         <EntityType Name="Job_SkillType">
           <Key>
@@ -151,6 +475,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Job_Post" Relationship="Self.FK_Job_Post_Job_SkillType" FromRole="Job_SkillType" ToRole="Job_Post" />
         </EntityType>
         <EntityType Name="Job_WorkType">
           <Key>
@@ -158,6 +483,19 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Job_Post" Relationship="Self.FK_Job_Post_Job_WorkType" FromRole="Job_WorkType" ToRole="Job_Post" />
+        </EntityType>
+        <EntityType Name="Portfolio_Image">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageCaption" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PortfolioID" Type="Int32" />
+          <NavigationProperty Name="Profile_User" Relationship="Self.FK__Portfolio__UserI__6C190EBB" FromRole="Portfolio_Image" ToRole="Profile_User" />
+          <NavigationProperty Name="Profile_Portfolio" Relationship="Self.FK_Portfolio_Image_Profile_Portfolio" FromRole="Portfolio_Image" ToRole="Profile_Portfolio" />
         </EntityType>
         <EntityType Name="Profile_Education">
           <Key>
@@ -169,6 +507,20 @@
           <Property Name="Level" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PassOutDate" Type="DateTime" Precision="0" />
           <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="Profile_User" Relationship="Self.FK__tblEducat__UserI__29572725" FromRole="Profile_Education" ToRole="Profile_User" />
+        </EntityType>
+        <EntityType Name="Profile_Portfolio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Project_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="ProjectDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ToolsUsed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="Portfolio_Image" Relationship="Self.FK_Portfolio_Image_Profile_Portfolio" FromRole="Profile_Portfolio" ToRole="Portfolio_Image" />
+          <NavigationProperty Name="Profile_User" Relationship="Self.FK__Profile_P__UserI__693CA210" FromRole="Profile_Portfolio" ToRole="Profile_User" />
         </EntityType>
         <EntityType Name="Profile_Training">
           <Key>
@@ -180,6 +532,7 @@
           <Property Name="Skills" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ComletedDate" Type="DateTime" Precision="0" />
           <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="Profile_User" Relationship="Self.FK__tblTraini__UserI__300424B4" FromRole="Profile_Training" ToRole="Profile_User" />
         </EntityType>
         <EntityType Name="Profile_User">
           <Key>
@@ -198,7 +551,15 @@
           <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="Decimal" Precision="10" Scale="0" />
           <Property Name="CountryCode" Type="Decimal" Precision="3" Scale="0" />
+          <NavigationProperty Name="Contact_Messanger" Relationship="Self.FK_Contact_Messanger_Profile_User" FromRole="Profile_User" ToRole="Contact_Messanger" />
+          <NavigationProperty Name="Contact_Messanger1" Relationship="Self.FK_Contact_Messanger_Profile_User1" FromRole="Profile_User" ToRole="Contact_Messanger" />
+          <NavigationProperty Name="Job_Post" Relationship="Self.FK_Job_Post_Profile_User" FromRole="Profile_User" ToRole="Job_Post" />
+          <NavigationProperty Name="Portfolio_Image" Relationship="Self.FK__Portfolio__UserI__6C190EBB" FromRole="Profile_User" ToRole="Portfolio_Image" />
+          <NavigationProperty Name="Profile_Education" Relationship="Self.FK__tblEducat__UserI__29572725" FromRole="Profile_User" ToRole="Profile_Education" />
+          <NavigationProperty Name="Profile_Portfolio" Relationship="Self.FK__Profile_P__UserI__693CA210" FromRole="Profile_User" ToRole="Profile_Portfolio" />
+          <NavigationProperty Name="Profile_Training" Relationship="Self.FK__tblTraini__UserI__300424B4" FromRole="Profile_User" ToRole="Profile_Training" />
           <NavigationProperty Name="Profile_Work" Relationship="Self.FK__tblWork__UserID__2D27B809" FromRole="Profile_User" ToRole="Profile_Work" />
+          <NavigationProperty Name="Profile_WorkStatus" Relationship="Self.FK_Profile_WorkStatus_Profile_User" FromRole="Profile_User" ToRole="Profile_WorkStatus" />
         </EntityType>
         <EntityType Name="Profile_Work">
           <Key>
@@ -212,6 +573,186 @@
           <Property Name="UserID" Type="Int32" />
           <NavigationProperty Name="Profile_User" Relationship="Self.FK__tblWork__UserID__2D27B809" FromRole="Profile_Work" ToRole="Profile_User" />
         </EntityType>
+        <EntityType Name="Profile_WorkStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="JobId" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Approved" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Job_Post" Relationship="Self.FK_Profile_WorkStatus_Job_Post" FromRole="Profile_WorkStatus" ToRole="Job_Post" />
+          <NavigationProperty Name="Profile_User" Relationship="Self.FK_Profile_WorkStatus_Profile_User" FromRole="Profile_WorkStatus" ToRole="Profile_User" />
+        </EntityType>
+        <Association Name="FK_Contact_Messanger_Contact_Message">
+          <End Role="Contact_Message" Type="Self.Contact_Message" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Contact_Messanger" Type="Self.Contact_Messanger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact_Message">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Contact_Messanger">
+              <PropertyRef Name="MessageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contact_Messanger_Profile_User">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1" />
+          <End Role="Contact_Messanger" Type="Self.Contact_Messanger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Contact_Messanger">
+              <PropertyRef Name="SenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contact_Messanger_Profile_User1">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1" />
+          <End Role="Contact_Messanger" Type="Self.Contact_Messanger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Contact_Messanger">
+              <PropertyRef Name="RecieverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jobe_HomeBase_Job_Post">
+          <End Role="Job_Post" Type="Self.Job_Post" Multiplicity="0..1" />
+          <End Role="Job_HomeBase" Type="Self.Job_HomeBase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Job_HomeBase">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Job_Post_Job_SkillType">
+          <End Role="Job_SkillType" Type="Self.Job_SkillType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Job_Post" Type="Self.Job_Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_SkillType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Job_Post">
+              <PropertyRef Name="SkillTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Job_Post_Job_WorkType">
+          <End Role="Job_WorkType" Type="Self.Job_WorkType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Job_Post" Type="Self.Job_Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_WorkType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Job_Post">
+              <PropertyRef Name="WorkingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Job_Post_Profile_User">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Job_Post" Type="Self.Job_Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Job_Post">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_WorkStatus_Job_Post">
+          <End Role="Job_Post" Type="Self.Job_Post" Multiplicity="0..1" />
+          <End Role="Profile_WorkStatus" Type="Self.Profile_WorkStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Profile_WorkStatus">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Portfolio__UserI__6C190EBB">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1" />
+          <End Role="Portfolio_Image" Type="Self.Portfolio_Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Portfolio_Image">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Portfolio_Image_Profile_Portfolio">
+          <End Role="Profile_Portfolio" Type="Self.Profile_Portfolio" Multiplicity="0..1" />
+          <End Role="Portfolio_Image" Type="Self.Portfolio_Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_Portfolio">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Portfolio_Image">
+              <PropertyRef Name="PortfolioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEducat__UserI__29572725">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Profile_Education" Type="Self.Profile_Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Profile_Education">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Profile_P__UserI__693CA210">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1" />
+          <End Role="Profile_Portfolio" Type="Self.Profile_Portfolio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Profile_Portfolio">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblTraini__UserI__300424B4">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Profile_Training" Type="Self.Profile_Training" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Profile_Training">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tblWork__UserID__2D27B809">
           <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -226,18 +767,91 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Profile_WorkStatus_Profile_User">
+          <End Role="Profile_User" Type="Self.Profile_User" Multiplicity="0..1" />
+          <End Role="Profile_WorkStatus" Type="Self.Profile_WorkStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Profile_WorkStatus">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HomeWorkDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Contact_Message" EntityType="Self.Contact_Message" />
+          <EntitySet Name="Contact_Messanger" EntityType="Self.Contact_Messanger" />
+          <EntitySet Name="Job_HomeBase" EntityType="Self.Job_HomeBase" />
           <EntitySet Name="Job_Post" EntityType="Self.Job_Post" />
           <EntitySet Name="Job_SkillType" EntityType="Self.Job_SkillType" />
           <EntitySet Name="Job_WorkType" EntityType="Self.Job_WorkType" />
+          <EntitySet Name="Portfolio_Image" EntityType="Self.Portfolio_Image" />
           <EntitySet Name="Profile_Education" EntityType="Self.Profile_Education" />
+          <EntitySet Name="Profile_Portfolio" EntityType="Self.Profile_Portfolio" />
           <EntitySet Name="Profile_Training" EntityType="Self.Profile_Training" />
           <EntitySet Name="Profile_User" EntityType="Self.Profile_User" />
           <EntitySet Name="Profile_Work" EntityType="Self.Profile_Work" />
+          <EntitySet Name="Profile_WorkStatus" EntityType="Self.Profile_WorkStatus" />
+          <AssociationSet Name="FK_Contact_Messanger_Contact_Message" Association="Self.FK_Contact_Messanger_Contact_Message">
+            <End Role="Contact_Message" EntitySet="Contact_Message" />
+            <End Role="Contact_Messanger" EntitySet="Contact_Messanger" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contact_Messanger_Profile_User" Association="Self.FK_Contact_Messanger_Profile_User">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Contact_Messanger" EntitySet="Contact_Messanger" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contact_Messanger_Profile_User1" Association="Self.FK_Contact_Messanger_Profile_User1">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Contact_Messanger" EntitySet="Contact_Messanger" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jobe_HomeBase_Job_Post" Association="Self.FK_Jobe_HomeBase_Job_Post">
+            <End Role="Job_Post" EntitySet="Job_Post" />
+            <End Role="Job_HomeBase" EntitySet="Job_HomeBase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Job_Post_Job_SkillType" Association="Self.FK_Job_Post_Job_SkillType">
+            <End Role="Job_SkillType" EntitySet="Job_SkillType" />
+            <End Role="Job_Post" EntitySet="Job_Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Job_Post_Job_WorkType" Association="Self.FK_Job_Post_Job_WorkType">
+            <End Role="Job_WorkType" EntitySet="Job_WorkType" />
+            <End Role="Job_Post" EntitySet="Job_Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Job_Post_Profile_User" Association="Self.FK_Job_Post_Profile_User">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Job_Post" EntitySet="Job_Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_WorkStatus_Job_Post" Association="Self.FK_Profile_WorkStatus_Job_Post">
+            <End Role="Job_Post" EntitySet="Job_Post" />
+            <End Role="Profile_WorkStatus" EntitySet="Profile_WorkStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Portfolio__UserI__6C190EBB" Association="Self.FK__Portfolio__UserI__6C190EBB">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Portfolio_Image" EntitySet="Portfolio_Image" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Portfolio_Image_Profile_Portfolio" Association="Self.FK_Portfolio_Image_Profile_Portfolio">
+            <End Role="Profile_Portfolio" EntitySet="Profile_Portfolio" />
+            <End Role="Portfolio_Image" EntitySet="Portfolio_Image" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEducat__UserI__29572725" Association="Self.FK__tblEducat__UserI__29572725">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Profile_Education" EntitySet="Profile_Education" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Profile_P__UserI__693CA210" Association="Self.FK__Profile_P__UserI__693CA210">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Profile_Portfolio" EntitySet="Profile_Portfolio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblTraini__UserI__300424B4" Association="Self.FK__tblTraini__UserI__300424B4">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Profile_Training" EntitySet="Profile_Training" />
+          </AssociationSet>
           <AssociationSet Name="FK__tblWork__UserID__2D27B809" Association="Self.FK__tblWork__UserID__2D27B809">
             <End Role="Profile_User" EntitySet="Profile_User" />
             <End Role="Profile_Work" EntitySet="Profile_Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_WorkStatus_Profile_User" Association="Self.FK_Profile_WorkStatus_Profile_User">
+            <End Role="Profile_User" EntitySet="Profile_User" />
+            <End Role="Profile_WorkStatus" EntitySet="Profile_WorkStatus" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -251,6 +865,29 @@
               <MappingFragment StoreEntitySet="Contact_Message">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contact_Messanger">
+            <EntityTypeMapping TypeName="HomeWorkDBModel.Contact_Messanger">
+              <MappingFragment StoreEntitySet="Contact_Messanger">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+                <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+                <ScalarProperty Name="RecieverID" ColumnName="RecieverID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Job_HomeBase">
+            <EntityTypeMapping TypeName="HomeWorkDBModel.Job_HomeBase">
+              <MappingFragment StoreEntitySet="Job_HomeBase">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="JobLocation" ColumnName="JobLocation" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -285,6 +922,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Portfolio_Image">
+            <EntityTypeMapping TypeName="HomeWorkDBModel.Portfolio_Image">
+              <MappingFragment StoreEntitySet="Portfolio_Image">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ImageCaption" ColumnName="ImageCaption" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="PortfolioID" ColumnName="PortfolioID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Profile_Education">
             <EntityTypeMapping TypeName="HomeWorkDBModel.Profile_Education">
               <MappingFragment StoreEntitySet="Profile_Education">
@@ -293,6 +941,18 @@
                 <ScalarProperty Name="Affiliation" ColumnName="Affiliation" />
                 <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="PassOutDate" ColumnName="PassOutDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profile_Portfolio">
+            <EntityTypeMapping TypeName="HomeWorkDBModel.Profile_Portfolio">
+              <MappingFragment StoreEntitySet="Profile_Portfolio">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Project_Name" ColumnName="Project Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+                <ScalarProperty Name="ToolsUsed" ColumnName="ToolsUsed" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -337,6 +997,17 @@
                 <ScalarProperty Name="Responsibility" ColumnName="Responsibility" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profile_WorkStatus">
+            <EntityTypeMapping TypeName="HomeWorkDBModel.Profile_WorkStatus">
+              <MappingFragment StoreEntitySet="Profile_WorkStatus">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

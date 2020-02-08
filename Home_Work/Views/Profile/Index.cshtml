@@ -1,0 +1,59 @@
+﻿@model  Home_Work.Models.Profile_User
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table">
+
+
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.UserName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.LastLoginDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.MiddleName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Gender)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Nationality)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.CountryCode)
+        </td>
+        @*<td>
+                @Html.ActionLink("Edit", "Edit", new { id=model.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=model.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=model.ID })
+            </td>*@
+    </tr>
+
+
+</table>
+@Html.Action("Index", "Work")
+@Html.Action("Index", "Education")
+@Html.Action("Index", "Training")
+@Html.Action("Index", "Potfolio")

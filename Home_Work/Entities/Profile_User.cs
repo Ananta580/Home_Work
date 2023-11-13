@@ -3,7 +3,7 @@ namespace Home_Work.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Profile_User
     {
         public Profile_User()
@@ -18,11 +18,11 @@ namespace Home_Work.Models
             this.Profile_Work = new HashSet<Profile_Work>();
             this.Profile_WorkStatus = new HashSet<Profile_WorkStatus>();
         }
-    
+
         public int ID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public Nullable<System.DateTime> LastLoginDate { get; set; }
+        public DateTime? LastLoginDate { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -30,9 +30,9 @@ namespace Home_Work.Models
         public string Nationality { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
-        public Nullable<decimal> Phone { get; set; }
-        public Nullable<decimal> CountryCode { get; set; }
-    
+        public decimal? Phone { get; set; }
+        public decimal? CountryCode { get; set; }
+
         public virtual ICollection<Contact_Messanger> Contact_Messanger { get; set; }
         public virtual ICollection<Contact_Messanger> Contact_Messanger1 { get; set; }
         public virtual ICollection<Job_Post> Job_Post { get; set; }

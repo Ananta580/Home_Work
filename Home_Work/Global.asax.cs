@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Home_Work.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,6 +18,15 @@ namespace Home_Work
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<HomeWorkDBEntities>());
+
+
+            using (var context = new HomeWorkDBEntities())
+            {
+                context.Database.Initialize(false);
+            }
+
         }
     }
 }

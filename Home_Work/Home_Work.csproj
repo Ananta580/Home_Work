@@ -124,8 +124,10 @@
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\PotfolioController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\SkillTypeController.cs" />
     <Compile Include="Controllers\TrainingController.cs" />
     <Compile Include="Controllers\WorkController.cs" />
+    <Compile Include="Controllers\WorkTypeController.cs" />
     <Compile Include="Entities\Contact_Message.cs" />
     <Compile Include="Entities\Contact_Messanger.cs" />
     <Compile Include="Entities\Job_HomeBase.cs" />
@@ -371,6 +373,16 @@
     <Content Include="Views\Work\Delete.cshtml" />
     <Content Include="Views\Work\Edit.cshtml" />
     <Content Include="Views\Work\Index.cshtml" />
+    <Content Include="Views\SkillType\Create.cshtml" />
+    <Content Include="Views\SkillType\Delete.cshtml" />
+    <Content Include="Views\SkillType\Details.cshtml" />
+    <Content Include="Views\SkillType\Edit.cshtml" />
+    <Content Include="Views\SkillType\Index.cshtml" />
+    <Content Include="Views\WorkType\Create.cshtml" />
+    <Content Include="Views\WorkType\Delete.cshtml" />
+    <Content Include="Views\WorkType\Details.cshtml" />
+    <Content Include="Views\WorkType\Edit.cshtml" />
+    <Content Include="Views\WorkType\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

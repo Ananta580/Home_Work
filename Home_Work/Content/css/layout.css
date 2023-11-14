@@ -1,0 +1,136 @@
+.page{
+    background-color: rgb(211, 211, 211);
+}
+
+.navigation-bar{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background: white;
+    position: sticky;
+    top: 0px;
+    padding: 10px 0px;
+}
+
+.left-nav-bar {
+    display: flex;
+    align-items: center;
+}
+
+.left-nav-bar>img{
+    padding:5px 10px;
+    height: 25px;
+}
+
+.left-nav-bar a{
+    padding:10px 20px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    transition: 0.5s;
+    background:linear-gradient(60deg,rgb(136, 0, 255),#380e8b) ;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.left-nav-bar a:hover{
+    background:linear-gradient(60deg,rgba(136, 0, 255, 0.589),#380e8b8c);
+    color: white;
+    transition: 0.5s;
+    -webkit-text-fill-color: white;
+    -webkit-background-clip: none;
+}
+
+.right-nav-bar{
+    display: flex;
+    align-items: center;
+    gap:20px;
+    padding-right: 20px;
+}
+
+.nav-username{
+    color: gray;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-username:hover{
+    color: rgb(0, 132, 255);
+    text-decoration: underline;
+}
+
+.nav-btn{
+    padding:10px 15px;
+    background-color: #1b1464;
+    border:2px solid #1b1464;
+    color: white;
+    border-radius: 4px;
+}
+
+.nav-btn-outline{
+    padding:10px 15px;
+    background-color: transparent;
+    border:2px solid #1b1464;
+    color: #1b1464;
+    border-radius: 4px;
+}
+
+
+
+
+
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font-family: 'Roboto', sans-serif;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+a {
+    text-decoration: none;
+}
